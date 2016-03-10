@@ -1,0 +1,11 @@
+apply plugin: 'java'
+
+version = '1.0'
+
+jar {
+    from sourceSets.main.allSource
+    manifest {
+        attributes 'Implementation-Title': 'sanselan-0_97-android', 'Implementation-Version': version
+    }
+    archivesBaseName = 'sanselan-0_97-android'
+}
