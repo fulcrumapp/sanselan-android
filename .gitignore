@@ -2,7 +2,7 @@
 **/build/
 
 # Local Configuration
-local.properties
+gradle.properties
 
 # Ignore Gradle GUI config
 gradle-app.setting
