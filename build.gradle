@@ -1,14 +1,52 @@
-apply plugin: 'java'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
+    }
+}
+
+apply plugin: "java"
+apply plugin: "maven-publish"
+apply plugin: "com.jfrog.artifactory"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-version = '1.0.0'
+version = "1.0.0"
+group = "sanselan"
 
 jar {
     from sourceSets.main.allSource
     manifest {
-        attributes 'Implementation-Title': 'sanselan-0_97-android', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'sanselan-android', 'Implementation-Version': version
     }
-    archivesBaseName = 'fulcrum-sanselan-android'
+    archivesBaseName = 'sanselan-android'
+}
+
+artifactory {
+    contextUrl = "${ARTIFACTORY_CONTEXT_URL}"
+    publish {
+        repository {
+            repoKey = "${ARTIFACTORY_REPO_KEY}"
+            username = "${ARTIFACTORY_USER}"
+            password = "${ARTIFACTORY_API_KEY}"
+        }
+        defaults {
+            publications('mavenJava')
+            publishBuildInfo = true
+            publishArtifacts = true
+            publishPom = true
+            publishIvy = false
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 }
