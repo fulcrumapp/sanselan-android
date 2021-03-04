@@ -9,14 +9,17 @@ This repository is forked from https://code.google.com/archive/p/sanselanandroid
 It is necessary to maintain `sanselan-android` because there are modifications and re-definitions necessary to enable Sanselan to work correctly on Android (plug: [read our post](http://www.fulcrumapp.com/blog/adding-photo-quality-settings-on-android/)). Additionally, there isn't currently a stable release of Apache Commons Imaging (especially one with the aforementioned tweaks).
 
 ## Building
-
-If you need to make modifications, you should submit a PR! but if we're too slow ... ... ... and you need to make changes/get your own jar, check out the repo and:
-
-1) upgrade the `version` in `build.gradle`
-
-2) then in the root run:
-
-    ./gradlew clean build
+- Upgrade the `version` in `build.gradle`
+- Run `=> ./gradlew clean build`
 
 This will create a new jar in `build/libs`.
 
+## Publishing
+We publish the libs to an internal [Artifactory](https://jfrog.com/artifactory/) maven repo.  You can publish to any Artifactory server by providing the following variables in `gradle.properties` file at the root of the project: 
+
+```bash
+ARTIFACTORY_CONTEXT_URL = SERVER_URL
+ARTIFACTORY_REPO_KEY = REPO_NAME
+ARTIFACTORY_USER = USER_ACCOUNT
+ARTIFACTORY_API_KEY = API_TOKEN or USER_PASSWORD
+```
